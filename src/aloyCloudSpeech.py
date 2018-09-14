@@ -9,10 +9,7 @@ import aiy.voicehat
 
 def main():
     recognizer = aiy.cloudspeech.get_recognizer()
-    recognizer.expect_phrase('turn off the light')
-    recognizer.expect_phrase('turn on the light')
-    recognizer.expect_phrase('blink')
-    recognizer.expect_phrase('repeat after me')
+    recognizer.expect_hotword(hotword_list=['Aloy', 'Ok Google', 'Ok Aloy'])
 
     button = aiy.voicehat.get_button()
     led = aiy.voicehat.get_led()
