@@ -39,6 +39,7 @@ def process_event(assistant, event):
             print('Say "OK, Google" then speak, or press Ctrl+C to quit...')
 
     elif event.type == EventType.ON_CONVERSATION_TURN_STARTED:
+        status_ui.set_trigger_sound_wave('/home/pi/aloyVK/assets/googlestart.wav')
         status_ui.status('listening')
 
     elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED and event.args:
