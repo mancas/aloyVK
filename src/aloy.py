@@ -20,6 +20,10 @@ def power_off_pi():
     subprocess.call('sudo shutdown now', shell=True)
 
 
+def test():
+    aiy.audio.say('Hola caracola', lang='es-ES')
+
+
 def reboot_pi():
     aiy.audio.say('See you in a bit!')
     subprocess.call('sudo reboot', shell=True)
@@ -45,9 +49,9 @@ def process_event(assistant, event):
     elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED and event.args:
         print('You said:', event.args['text'])
         text = event.args['text'].lower()
-        if text == 'power off':
+        if text == 'test':
             assistant.stop_conversation()
-            power_off_pi()
+            test()
         elif text == 'reboot':
             assistant.stop_conversation()
             reboot_pi()
