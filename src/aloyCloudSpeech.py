@@ -1,11 +1,15 @@
-"""A demo of the Google CloudSpeech recognizer."""
-
-import os
+import threading
+import requests
+import time
 
 import aiy.audio
 import aiy.cloudspeech
 import aiy.voicehat
 
+threads = []
+
+def play_tinkle():
+    aiy.audio.play_wave("/home/pi/aloyVK/assets/googlestart.wav")
 
 def main():
     recognizer = aiy.cloudspeech.get_recognizer()
@@ -16,25 +20,18 @@ def main():
     aiy.audio.get_recorder().start()
 
     while True:
-        print('Press the button and speak')
-        button.wait_for_press()
-        print('Listening...')
+        print('Listening...waiting for hotword.')
         text = recognizer.recognize()
+        print('Got hotword.')
+        task = threading.Thread(target=play_tinkle)
+        threads.append(task)
+        task.start()
         if text is None:
             print('Sorry, I did not hear you.')
+            aiy.audio.say('Lo siento, no te he escuchado', lang='es-ES')
         else:
             print('You said "', text, '"')
-            if 'turn on the light' in text:
-                led.set_state(aiy.voicehat.LED.ON)
-            elif 'turn off the light' in text:
-                led.set_state(aiy.voicehat.LED.OFF)
-            elif 'blink' in text:
-                led.set_state(aiy.voicehat.LED.BLINK)
-            elif 'repeat after me' in text:
-                to_repeat = text.replace('repeat after me', '', 1)
-                aiy.audio.say(to_repeat)
-            elif 'goodbye' in text:
-                os._exit(0)
+
 
 
 if __name__ == '__main__':
