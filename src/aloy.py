@@ -56,6 +56,7 @@ def process_event(assistant, event):
             say_ip()
 
     elif event.type == EventType.ON_END_OF_UTTERANCE:
+        status_ui.set_trigger_sound_wave('/home/pi/aloyVK/assets/googleend.wav')
         status_ui.status('thinking')
 
     elif (event.type == EventType.ON_CONVERSATION_TURN_FINISHED
