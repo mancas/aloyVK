@@ -73,6 +73,7 @@ def main():
         print('Cannot run hotword demo on Pi Zero!')
         exit(-1)
 
+    aiy.i18n.set_language_code('es-ES')
     credentials = aiy.assistant.auth_helpers.get_assistant_credentials()
     with Assistant(credentials) as assistant:
         for event in assistant.start():
