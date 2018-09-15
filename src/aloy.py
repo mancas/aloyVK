@@ -49,8 +49,9 @@ def process_event(assistant, event):
     elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED and event.args:
         print('You said:', event.args['text'])
         text = event.args['text'].lower()
-        if text == 'test':
+        if text == 'name':
             assistant.stop_conversation()
+            aiy.audio.say('Yo soy tu dios', lang='es-ES')
             test()
         elif text == 'reboot':
             assistant.stop_conversation()
